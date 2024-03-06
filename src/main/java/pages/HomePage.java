@@ -6,12 +6,18 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.WebElement;
 
 public class HomePage {
+
     private WebDriver driver;
+    private final String URL = "https://qa-scooter.praktikum-services.ru";
     private By firstOrderButton = By.className("Button_Button__ra12g");
     private By secondOrderButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
-    public HomePage(WebDriver driver) {
 
+    public HomePage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void getPage() {
+        driver.get(URL);
     }
 
     public void clickFirstOrderButton() {
@@ -24,20 +30,24 @@ public class HomePage {
         element.click();
     }
 
-    public void clickAccordionItemButton(String id) {
-        WebElement element = driver.findElement(By.id(id));
+    public void clickAccordionItemButton(int index) {
+        WebElement element = findAccordionItemElement(index);
                 ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
-        driver.findElement(By.id(id)).click();
+        element.click();
 
     }
 
-    public void checkExpandedAccordionItemPanel(String id) {
-        String expand = driver.findElement(By.id(id)).getAttribute("aria-expanded");
+    public void checkExpandedAccordionItemPanel(int index) {
+        String expand = findAccordionItemElement(index).getAttribute("aria-expanded");
         assertEquals("true", expand);
     }
 
-    public String getTextAccordionItem(String id) {
-        String text = driver.findElement(By.xpath(".//div[@aria-labelledby='"+id+"']/p")).getText();
+    public String getTextAccordionItem(int index) {
+        String text = driver.findElement(By.xpath(".//div[@aria-labelledby='accordion__heading-"+index+"']/p")).getText();
         return text;
+    }
+
+    private WebElement findAccordionItemElement(int index) {
+        return driver.findElement(By.id("accordion__heading-"+index));
     }
 }

@@ -3,10 +3,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import static org.junit.Assert.assertEquals;
 
 public class OrderPage {
+
     private WebDriver driver;
 
+    private final String URL = "https://qa-scooter.praktikum-services.ru/order";
+    private By orderHeader = By.className("Order_Header__BZXOb");
     private By firstNameField = By.xpath(".//input[@placeholder='* Имя']");
     private By secondNameField = By.xpath(".//input[@placeholder='* Фамилия']");
     private By addressField = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
@@ -22,6 +26,12 @@ public class OrderPage {
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void checkOrderPage() {
+        //driver.findElement(orderHeader).isEnabled();
+        String currentUrl = driver.getCurrentUrl();
+        assertEquals(URL, currentUrl);
     }
 
     public void fillFirstNameField(String name) {

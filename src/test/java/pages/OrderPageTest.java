@@ -1,17 +1,14 @@
 package pages;
 
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
-public class OrderPageTest {
-    private WebDriver driver;
+public class OrderPageTest extends PageTest {
     private final String name;
     private final String secondName;
     private final String address;
@@ -70,43 +67,31 @@ public class OrderPageTest {
                 },
         };
     }
-    @Test
-    public void firstCheckMakeOrder() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
 
+    @Test
+    public void checkMakeOrder() {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         HomePage objHomePage = new HomePage(driver);
+        OrderPage objOrderPage = new OrderPage(driver);
+
+        objHomePage.getPage();
         objHomePage.clickFirstOrderButton();
-
-        OrderPage objOrderPage = new OrderPage(driver);
         objOrderPage.fillAboutClientForm(name, secondName, address, metro, phone);
         objOrderPage.fillAboutLeaseForm(date, period, color, comment);
         objOrderPage.clickYesButton();
         boolean actual = objOrderPage.checkOrderPopupEnabled();
-        assertEquals(true, actual);
 
+        assertTrue(actual);
     }
 
     @Test
-    public void secondCheckMakeOrder() {
-        driver = new ChromeDriver();
+    public void goToOrderPage() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-
         HomePage objHomePage = new HomePage(driver);
-        objHomePage.clickSecondOrderButton();
-
         OrderPage objOrderPage = new OrderPage(driver);
-        objOrderPage.fillAboutClientForm(name, secondName, address, metro, phone);
-        objOrderPage.fillAboutLeaseForm(date, period, color, comment);
-        objOrderPage.clickYesButton();
-        boolean actual = objOrderPage.checkOrderPopupEnabled();
-        assertEquals(true, actual);
-    }
 
-    @After
-    public void teardown() {
-        driver.quit();
+        objHomePage.getPage();
+        objHomePage.clickSecondOrderButton();
+        objOrderPage.checkOrderPage();
     }
 }
