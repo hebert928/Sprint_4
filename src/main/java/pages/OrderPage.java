@@ -10,7 +10,6 @@ public class OrderPage {
     private WebDriver driver;
 
     private final String URL = "https://qa-scooter.praktikum-services.ru/order";
-    private By orderHeader = By.className("Order_Header__BZXOb");
     private By firstNameField = By.xpath(".//input[@placeholder='* Имя']");
     private By secondNameField = By.xpath(".//input[@placeholder='* Фамилия']");
     private By addressField = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
@@ -29,7 +28,6 @@ public class OrderPage {
     }
 
     public void checkOrderPage() {
-        //driver.findElement(orderHeader).isEnabled();
         String currentUrl = driver.getCurrentUrl();
         assertEquals(URL, currentUrl);
     }
