@@ -9,7 +9,7 @@ public class OrderPage {
 
     private WebDriver driver;
 
-    private final String URL = "https://qa-scooter.praktikum-services.ru/order";
+    private static final String URL = "https://qa-scooter.praktikum-services.ru/order";
     private By firstNameField = By.xpath(".//input[@placeholder='* Имя']");
     private By secondNameField = By.xpath(".//input[@placeholder='* Фамилия']");
     private By addressField = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");

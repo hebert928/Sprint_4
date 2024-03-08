@@ -6,13 +6,13 @@ import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class HomePageTest extends PageTest {
+public class HomePageTest extends BaseTest {
     private final int index;
-    private final String checkedText;
+    private final String expected;
 
-    public HomePageTest(int index, String checkedText) {
+    public HomePageTest(int index, String expected) {
         this.index = index;
-        this.checkedText = checkedText;
+        this.expected = expected;
     }
 
     @Parameterized.Parameters
@@ -38,6 +38,6 @@ public class HomePageTest extends PageTest {
         objHomePage.checkExpandedAccordionItemPanel(index);
         String actual = objHomePage.getTextAccordionItem(index);
 
-        assertEquals(checkedText, actual);
+        assertEquals(expected, actual);
     }
 }

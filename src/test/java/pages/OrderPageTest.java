@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
-public class OrderPageTest extends PageTest {
+public class OrderPageTest extends BaseTest {
     private final String name;
     private final String secondName;
     private final String address;
